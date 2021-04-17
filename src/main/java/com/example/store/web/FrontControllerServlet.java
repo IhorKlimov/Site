@@ -92,6 +92,7 @@ public class FrontControllerServlet extends HttpServlet {
             int parentCategoryId = Integer.parseInt(request.getParameter("categoryId"));
             Category parentCategory = categoryService.getCategoryById(parentCategoryId);
             request.setAttribute("parentCategory", parentCategory);
+            System.out.println("checkwefwe "+ (parentCategory ==null) + " "+ parentCategoryId);
             categories = parentCategory.getSubCategories();
         } else {
             categories = categoryService.searchRootCategories(searchText);
@@ -235,6 +236,7 @@ public class FrontControllerServlet extends HttpServlet {
         if (!isEmpty(request.getParameter("categoryId"))) {
             Integer categoryId = Integer.parseInt(request.getParameter("categoryId"));
             category = categoryService.getCategoryById(categoryId);
+            System.out.println("edit "+ categoryId + " "+ (category ==null));
         }
 
         String text = request.getParameter("text");

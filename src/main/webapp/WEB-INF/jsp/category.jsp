@@ -21,7 +21,9 @@
                 <th>Sub-categories</th>
             </c:if>
             <th>Number of items</th>
-            <th>Actions</th>
+            <c:if test="${!empty user}">
+                <th>Actions</th>
+            </c:if>
         </tr>
         </thead>
         <tbody>
@@ -49,20 +51,22 @@
                     <td>
                         <a href="category?categoryId=${category.categoryId}">${category.title}</a>
                     </td>
-                    <td>${category.numberOfItems}</td>
-                    <td>
-                        <form method="GET" style="display: contents">
-                            <c:if test="${parentCategory != null}">
-                                <input type="hidden" name="categoryId" value="${parentCategory.categoryId}"/>
-                            </c:if>
-                            <input type="hidden" name="editCategoryId" value="${category.categoryId}"/>
-                            <button type="submit"><i class="fa fa-edit"></i></button>
-                        </form>
-                        <form action="deleteCategory" method="POST" style="display: contents">
-                            <input type="hidden" name="categoryId" value="${category.categoryId}"/>
-                            <button type="submit"><i class="fa fa-trash"></i></button>
-                        </form>
-                    </td>
+                    <td>${category.getNumberOfItems()}</td>
+                    <c:if test="${!empty user}">
+                        <td>
+                            <form method="GET" style="display: contents">
+                                <c:if test="${parentCategory != null}">
+                                    <input type="hidden" name="categoryId" value="${parentCategory.categoryId}"/>
+                                </c:if>
+                                <input type="hidden" name="editCategoryId" value="${category.categoryId}"/>
+                                <button type="submit"><i class="fa fa-edit"></i></button>
+                            </form>
+                            <form action="deleteCategory" method="POST" style="display: contents">
+                                <input type="hidden" name="categoryId" value="${category.categoryId}"/>
+                                <button type="submit"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </c:if>
                 </c:if>
             </tr>
         </c:forEach>
@@ -87,7 +91,9 @@
             <thead>
             <tr>
                 <th>Items</th>
-                <th>Actions</th>
+                <c:if test="${!empty user}">
+                    <th>Actions</th>
+                </c:if>
             </tr>
             </thead>
             <tbody>
@@ -117,20 +123,21 @@
                         <td>
                             <a href="item?itemId=${item.itemId}">${item.maker} ${item.model}. ${item.description}</a>
                         </td>
-                        <td>
-                            <form method="GET" style="display: contents">
-                                <c:if test="${parentCategory != null}">
-                                    <input type="hidden" name="categoryId" value="${parentCategory.categoryId}"/>
-                                </c:if>
-                                <input type="hidden" name="editItemId" value="${item.itemId}"/>
-                                <button type="submit"><i class="fa fa-edit"></i></button>
-                            </form>
-                            <form action="deleteItem" method="POST" style="display: contents">
-                                <input type="hidden" name="itemId" value="${item.itemId}"/>
-                                <button type="submit"><i class="fa fa-trash"></i></button>
-                            </form>
-                        </td>
-
+                        <c:if test="${!empty user}">
+                            <td>
+                                <form method="GET" style="display: contents">
+                                    <c:if test="${parentCategory != null}">
+                                        <input type="hidden" name="categoryId" value="${parentCategory.categoryId}"/>
+                                    </c:if>
+                                    <input type="hidden" name="editItemId" value="${item.itemId}"/>
+                                    <button type="submit"><i class="fa fa-edit"></i></button>
+                                </form>
+                                <form action="deleteItem" method="POST" style="display: contents">
+                                    <input type="hidden" name="itemId" value="${item.itemId}"/>
+                                    <button type="submit"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </c:if>
                     </c:if>
                 </tr>
             </c:forEach>

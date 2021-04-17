@@ -46,6 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void editCategory(Category category, String text) {
         category.setTitle(text);
+        daoFactory.getCategoryDao().update(category);
     }
 
     @Override
@@ -67,15 +68,14 @@ public class CategoryServiceImpl implements CategoryService {
     public Collection<Category> searchRootCategories(String text) {
 //        if (text == null || text.equals("")) {
         Collection<Category> allCategories = getAllCategories();
-        allCategories.removeIf(next -> next.getParentCategoryId() != null);
-        return allCategories;
+        return allCategories.stream().filter(next -> next.getParentCategoryId() == null).collect(Collectors.toList());
 //        }
 //        return daoFactory.getCategoryDao().findByText(text);
     }
 
     @Override
     public List<Category> getCategoriesContainingItem(Integer itemId) {
-        System.out.println("getCategoriesContainingItem "+ itemId);
+        System.out.println("getCategoriesContainingItem " + itemId);
         return daoFactory.getCategoryDao().findAll()
                 .stream()
                 .filter(c -> c.getItems() != null && c.getItems().stream().anyMatch(i -> i.getItemId().equals(itemId)))

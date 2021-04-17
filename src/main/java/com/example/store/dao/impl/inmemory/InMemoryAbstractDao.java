@@ -27,6 +27,7 @@ class InMemoryAbstractDao<T> implements AbstractDao<T> {
 
     @Override
     public T get(Integer id) {
+        System.out.println("size check "+ (entities.size()) + " "+ id);
         return entities.get(id);
     }
 
@@ -49,6 +50,7 @@ class InMemoryAbstractDao<T> implements AbstractDao<T> {
 
     @Override
     public void delete(T entity) {
+        System.out.println("delete ");
         entities.remove(idGetter.apply(entity));
     }
 
