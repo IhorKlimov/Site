@@ -1,5 +1,6 @@
 package com.example.store.dao.impl.inmemory;
 
+import com.example.store.model.Category;
 import com.example.store.model.Comment;
 import com.example.store.model.Movie;
 import com.example.store.model.User;
@@ -12,6 +13,8 @@ public class InMemoryTestData {
         database.users.clear();
         database.movies.clear();
         database.comments.clear();
+        database.items.clear();
+        database.categories.clear();
 
         User alice = new User(1, "Alice", "alice@example.com", "passwordhash");
         User bob = new User(2, "Bob", "bob@example.com", "passwordhash");
@@ -50,5 +53,12 @@ public class InMemoryTestData {
         movies.stream()
                 .flatMap(movie -> movie.getComments().stream())
                 .forEach(comment -> database.comments.put(comment.getCommentId(), comment));
+
+        Category householdAppliances = new Category(1, null, "Household appliances");
+        Category smartPhones = new Category(2, null, "Smartphones");
+        List<Category> categories = Arrays.asList(householdAppliances, smartPhones);
+        categories.forEach(category -> database.categories.put(category.getCategoryId(), category));
+
+
     }
 }

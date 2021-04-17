@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page pageEncoding="UTF-8" %>
 <header>
-    <h1 class="project-title">*** The Best Movie Database EVER! ***</h1>
+    <a href="."><h1 class="project-title">Home Depot</h1></a>
     <form class="search-form" action="search">
         <input class="search-text" type="text" name="text" value="${text}" />
         <input class="search-button" type="submit" value="Search" />

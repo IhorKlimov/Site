@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+button {
+    cursor: pointer;
+}
+
 header {
     background-color: red;
     color: white;
@@ -102,7 +106,7 @@ td > a:active {
 
 textarea {
     width: 100%;
-    background-color: yellow; 
+    background-color: yellow;
 }
 
 .boxsizingBorder {

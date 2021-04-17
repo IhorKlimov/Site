@@ -24,6 +24,9 @@ public class ApplicationContextListener implements ServletContextListener {
 
         UserService userService = new UserServiceImpl(daoFactory, UnaryOperator.identity());
         sce.getServletContext().setAttribute("userService", userService);
+
+        CategoryService categoryService = new CategoryServiceImpl(daoFactory);
+        sce.getServletContext().setAttribute("categoryService", categoryService);
     }
 
     @Override

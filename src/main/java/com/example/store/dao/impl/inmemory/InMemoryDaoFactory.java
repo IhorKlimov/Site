@@ -9,6 +9,8 @@ class InMemoryDaoFactory implements DaoFactory {
     MovieDao movieDao;
     CommentDao commentDao;
     UserDao userDao;
+    ItemDao itemDao;
+    CategoryDao categoryDao;
 
     InMemoryDaoFactory(InMemoryDatabase database) {
         this.database = database;
@@ -16,6 +18,8 @@ class InMemoryDaoFactory implements DaoFactory {
         movieDao = new InMemoryMovieDao(database);
         commentDao = new InMemoryCommentDao(database);
         userDao = new InMemoryUserDao(database);
+        categoryDao = new InMemoryCategoryDao(database);
+        itemDao = new InMemoryItemDao(database);
     }
 
     @Override
@@ -33,4 +37,11 @@ class InMemoryDaoFactory implements DaoFactory {
         return userDao;
     }
 
+    public ItemDao getItemDao() {
+        return itemDao;
+    }
+
+    public CategoryDao getCategoryDao() {
+        return categoryDao;
+    }
 }

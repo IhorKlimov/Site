@@ -7,4 +7,8 @@ public interface DaoFactory {
     MovieDao getMovieDao();
 
     UserDao getUserDao();
+
+    CategoryDao getCategoryDao();
+
+    ItemDao getItemDao();
 }
