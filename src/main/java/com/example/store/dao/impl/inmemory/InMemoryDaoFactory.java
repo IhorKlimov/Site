@@ -1,13 +1,14 @@
 package com.example.store.dao.impl.inmemory;
 
-import com.example.store.dao.*;
+import com.example.store.dao.CategoryDao;
+import com.example.store.dao.DaoFactory;
+import com.example.store.dao.ItemDao;
+import com.example.store.dao.UserDao;
 
 class InMemoryDaoFactory implements DaoFactory {
 
     InMemoryDatabase database;
 
-    MovieDao movieDao;
-    CommentDao commentDao;
     UserDao userDao;
     ItemDao itemDao;
     CategoryDao categoryDao;
@@ -15,21 +16,9 @@ class InMemoryDaoFactory implements DaoFactory {
     InMemoryDaoFactory(InMemoryDatabase database) {
         this.database = database;
 
-        movieDao = new InMemoryMovieDao(database);
-        commentDao = new InMemoryCommentDao(database);
         userDao = new InMemoryUserDao(database);
         categoryDao = new InMemoryCategoryDao(database);
         itemDao = new InMemoryItemDao(database);
-    }
-
-    @Override
-    public CommentDao getCommentDao() {
-        return commentDao;
-    }
-
-    @Override
-    public MovieDao getMovieDao() {
-        return movieDao;
     }
 
     @Override

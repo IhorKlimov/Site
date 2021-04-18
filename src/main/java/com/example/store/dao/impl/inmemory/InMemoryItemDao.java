@@ -3,8 +3,6 @@ package com.example.store.dao.impl.inmemory;
 import com.example.store.dao.ItemDao;
 import com.example.store.model.Category;
 import com.example.store.model.Item;
-import com.example.store.model.Movie;
-import com.example.store.model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

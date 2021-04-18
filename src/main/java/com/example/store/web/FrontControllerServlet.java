@@ -1,27 +1,31 @@
 package com.example.store.web;
 
-import com.example.store.model.*;
-import com.example.store.services.*;
+import com.example.store.model.Category;
+import com.example.store.model.Item;
+import com.example.store.model.User;
+import com.example.store.services.CategoryService;
+import com.example.store.services.UserService;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 
 
 @WebServlet(name = "FrontControllerServlet", urlPatterns = {"/do/*"})
 public class FrontControllerServlet extends HttpServlet {
 
-    MovieService movieService;
     CategoryService categoryService;
     UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         System.out.println("init");
-        movieService = (MovieService) config.getServletContext().getAttribute("movieService");
         categoryService = (CategoryService) config.getServletContext().getAttribute("categoryService");
         userService = (UserService) config.getServletContext().getAttribute("userService");
     }
@@ -33,53 +37,41 @@ public class FrontControllerServlet extends HttpServlet {
         if (pathInfo == null) {
             pathInfo = "/";
         }
-//        try {
-        switch (pathInfo) {
-            case "/login":
-                login(request, response);
-                break;
-            case "/logout":
-                logout(request, response);
-                break;
-            case "/movie":
-                movie(request, response);
-                break;
-            case "/like":
-                like(request, response);
-                break;
-            case "/unlike":
-                unlike(request, response);
-                break;
-            case "/comment":
-                comment(request, response);
-                break;
-            case "/createCategory":
-                createCategory(request, response);
-                break;
-            case "/editCategory":
-                editCategory(request, response);
-                break;
-            case "/deleteCategory":
-                deleteCategory(request, response);
-                break;
-            case "/deleteItem":
-                deleteItem(request, response);
-                break;
-            case "/createItem":
-                createItem(request, response);
-                break;
-            case "/editItem":
-                editItem(request, response);
-                break;
-            case "/":
-            case "/search":
-            default:
-                category(request, response);
-                break;
+        try {
+            switch (pathInfo) {
+                case "/login":
+                    login(request, response);
+                    break;
+                case "/logout":
+                    logout(request, response);
+                    break;
+                case "/createCategory":
+                    createCategory(request, response);
+                    break;
+                case "/editCategory":
+                    editCategory(request, response);
+                    break;
+                case "/deleteCategory":
+                    deleteCategory(request, response);
+                    break;
+                case "/deleteItem":
+                    deleteItem(request, response);
+                    break;
+                case "/createItem":
+                    createItem(request, response);
+                    break;
+                case "/editItem":
+                    editItem(request, response);
+                    break;
+                case "/":
+                case "/search":
+                default:
+                    category(request, response);
+                    break;
+            }
+        } catch (RuntimeException ex) {
+            error(request, response, "Oops, " + ex.getMessage());
         }
-//        } catch (RuntimeException ex) {
-//            error(request, response, "Oops, " + ex.getMessage());
-//        }
 
     }
 
@@ -92,7 +84,7 @@ public class FrontControllerServlet extends HttpServlet {
             int parentCategoryId = Integer.parseInt(request.getParameter("categoryId"));
             Category parentCategory = categoryService.getCategoryById(parentCategoryId);
             request.setAttribute("parentCategory", parentCategory);
-            System.out.println("checkwefwe "+ (parentCategory ==null) + " "+ parentCategoryId);
+            System.out.println("checkwefwe " + (parentCategory == null) + " " + parentCategoryId);
             categories = parentCategory.getSubCategories();
         } else {
             categories = categoryService.searchRootCategories(searchText);
@@ -101,31 +93,6 @@ public class FrontControllerServlet extends HttpServlet {
         request.setAttribute("categories", categories);
         request.setAttribute("text", searchText);
         request.getRequestDispatcher("/WEB-INF/jsp/category.jsp").forward(request, response);
-    }
-
-    protected void movies(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String searchText = request.getParameter("text");
-
-        String sort = request.getParameter("sort");
-        MovieSortCriteria sortCriteria;
-        if (sort == null || sort.equals("")) {
-            sortCriteria = MovieSortCriteria.OLD_FIRST;
-        } else {
-            sortCriteria = MovieSortCriteria.valueOf(sort);
-        }
-
-        System.out.println((movieService == null) + " null check");
-        Collection<Movie> movies = movieService.search(searchText, sortCriteria);
-        request.setAttribute("movies", movies);
-        request.setAttribute("text", searchText);
-        request.getRequestDispatcher("/WEB-INF/jsp/movies.jsp").forward(request, response);
-    }
-
-    protected void movie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
-        Movie movie = movieService.getMovieById(movieId);
-        request.setAttribute("movie", movie);
-        request.getRequestDispatcher("/WEB-INF/jsp/movie.jsp").forward(request, response);
     }
 
     protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -149,53 +116,8 @@ public class FrontControllerServlet extends HttpServlet {
     }
 
     protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("movies", movieService.getAllMovies());
         request.getSession().invalidate();
         response.sendRedirect(".");
-    }
-
-    protected void like(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            error(request, response, "Sorry, you need to log in");
-            return;
-        }
-
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
-        Movie movie = movieService.getMovieById(movieId);
-
-        movieService.likeMovie(movie, user);
-        response.sendRedirect("./movie?movieId=" + movieId);
-    }
-
-    protected void unlike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            error(request, response, "Sorry, you need to log in");
-            return;
-        }
-
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
-        Movie movie = movieService.getMovieById(movieId);
-
-        movieService.unlikeMovie(movie, user);
-        response.sendRedirect("./movie?movieId=" + movieId);
-    }
-
-    protected void comment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            error(request, response, "Sorry, you need to log in");
-            return;
-        }
-
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
-        Movie movie = movieService.getMovieById(movieId);
-
-        String text = request.getParameter("text");
-
-        movieService.addComment(movie, user, text);
-        response.sendRedirect("./movie?movieId=" + movieId);
     }
 
     protected void createCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -236,7 +158,7 @@ public class FrontControllerServlet extends HttpServlet {
         if (!isEmpty(request.getParameter("categoryId"))) {
             Integer categoryId = Integer.parseInt(request.getParameter("categoryId"));
             category = categoryService.getCategoryById(categoryId);
-            System.out.println("edit "+ categoryId + " "+ (category ==null));
+            System.out.println("edit " + categoryId + " " + (category == null));
         }
 
         String text = request.getParameter("text");
@@ -320,7 +242,7 @@ public class FrontControllerServlet extends HttpServlet {
 
         Integer itemId = Integer.parseInt(request.getParameter("itemId"));
         Item item = categoryService.getItemById(itemId);
-        System.out.println("item id "+ item.getItemId());
+        System.out.println("item id " + item.getItemId());
 
         String maker = request.getParameter("maker");
         String model = request.getParameter("model");

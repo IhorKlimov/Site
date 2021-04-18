@@ -2,11 +2,8 @@ package com.example.store.dao.impl.inmemory;
 
 import com.example.store.dao.CategoryDao;
 import com.example.store.model.Category;
-import com.example.store.model.Movie;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 class InMemoryCategoryDao extends InMemoryAbstractDao<Category> implements CategoryDao {
 
