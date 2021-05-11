@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @WebServlet(name = "FrontControllerServlet", urlPatterns = {"/do/*"})
-public class FrontControllerServlet extends HttpServlet {
+    public class FrontControllerServlet extends HttpServlet {
 
     CategoryService categoryService;
     UserService userService;

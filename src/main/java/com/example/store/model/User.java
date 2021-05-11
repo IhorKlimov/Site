@@ -48,7 +48,6 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    // Used for HashSet in Movie.likers
     @Override
     public int hashCode() {
         int hash = 5;
@@ -56,7 +55,6 @@ public class User {
         return hash;
     }
 
-    // Used for HashSet in Movie.likers
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -74,5 +72,4 @@ public class User {
         }
         return true;
     }
-
 }

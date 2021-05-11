@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Category.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Category.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.store.model;</span>
+
+<span class="s0">import </span><span class="s1">java.util.List;</span>
+
+<span class="s0">public class </span><span class="s1">Category {</span>
+    <span class="s0">private </span><span class="s1">Integer categoryId;</span>
+    <span class="s0">private </span><span class="s1">Integer parentCategoryId;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Category&gt; subCategories;</span>
+    <span class="s0">private </span><span class="s1">String title;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Item&gt; items;</span>
+
+    <span class="s0">public </span><span class="s1">Category(Integer categoryId, Integer parentCategoryId, String title) {</span>
+        <span class="s0">this</span><span class="s1">.categoryId = categoryId;</span>
+        <span class="s0">this</span><span class="s1">.title = title;</span>
+        <span class="s0">this</span><span class="s1">.parentCategoryId = parentCategoryId;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Integer getParentCategoryId() {</span>
+        <span class="s0">return </span><span class="s1">parentCategoryId;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setParentCategoryId(Integer parentCategoryId) {</span>
+        <span class="s0">this</span><span class="s1">.parentCategoryId = parentCategoryId;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Category&gt; getSubCategories() {</span>
+        <span class="s0">return </span><span class="s1">subCategories;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setSubCategories(List&lt;Category&gt; subCategories) {</span>
+        <span class="s0">this</span><span class="s1">.subCategories = subCategories;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">String getTitle() {</span>
+        <span class="s0">return </span><span class="s1">title;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTitle(String title) {</span>
+        <span class="s0">this</span><span class="s1">.title = title;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Integer getCategoryId() {</span>
+        <span class="s0">return </span><span class="s1">categoryId;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setCategoryId(Integer categoryId) {</span>
+        <span class="s0">this</span><span class="s1">.categoryId = categoryId;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Item&gt; getItems() {</span>
+        <span class="s0">return </span><span class="s1">items;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setItems(List&lt;Item&gt; items) {</span>
+        <span class="s0">this</span><span class="s1">.items = items;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getNumberOfItems() {</span>
+        <span class="s0">int </span><span class="s1">result = </span><span class="s2">0</span><span class="s1">;</span>
+
+        <span class="s0">if </span><span class="s1">(subCategories != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s0">for </span><span class="s1">(Category subCategory : subCategories) {</span>
+                <span class="s1">result += subCategory.getNumberOfItems();</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(items != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">result += items.size();</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">result;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
