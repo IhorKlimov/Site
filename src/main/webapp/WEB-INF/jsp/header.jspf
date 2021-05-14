@@ -2,10 +2,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <header>
     <a href="."><h1 class="project-title">Home Depot</h1></a>
-    <form class="search-form" action="search">
-        <input class="search-text" type="text" name="text" value="${text}" />
-        <input class="search-button" type="submit" value="Search" />
-    </form>
     <c:if test="${!empty user}">
         <form class="login-form" action="logout" method="POST">            
             <c:out value="${user.name}"/><br>
