@@ -1,10 +1,10 @@
 package com.example.store.services;
 
-import com.example.store.model.User;
+import com.example.store.model.Admin;
 
 public interface UserService {
 
-    User getByLogin(String login);
+    Admin getByLogin(String login);
 
-    boolean checkPassword(User user, String password);
+    boolean checkPassword(Admin user, String password);
 }

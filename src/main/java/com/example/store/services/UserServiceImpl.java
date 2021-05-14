@@ -1,7 +1,7 @@
 package com.example.store.services;
 
 import com.example.store.dao.DaoFactory;
-import com.example.store.model.User;
+import com.example.store.model.Admin;
 
 import java.util.function.UnaryOperator;
 
@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByLogin(String login) {
+    public Admin getByLogin(String login) {
         return daoFactory.getUserDao().getByLogin(login);
     }
 
     @Override
-    public boolean checkPassword(User user, String password) {
+    public boolean checkPassword(Admin user, String password) {
         return user.getPasswordHash().equals(passwordHasher.apply(password));
     }
 

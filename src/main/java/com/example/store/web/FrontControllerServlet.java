@@ -2,7 +2,7 @@ package com.example.store.web;
 
 import com.example.store.model.Category;
 import com.example.store.model.Item;
-import com.example.store.model.User;
+import com.example.store.model.Admin;
 import com.example.store.services.CategoryService;
 import com.example.store.services.UserService;
 
@@ -99,7 +99,7 @@ import java.util.List;
         request.getSession().invalidate();
 
         String login = request.getParameter("login");
-        User user = userService.getByLogin(login);
+        Admin user = userService.getByLogin(login);
         if (user == null) {
             error(request, response, "Sorry, user with login '" + login + "' not exists");
             return;
@@ -121,7 +121,7 @@ import java.util.List;
     }
 
     protected void createCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         if (user == null) {
             error(request, response, "Sorry, you need to log in");
             return;
@@ -148,7 +148,7 @@ import java.util.List;
     }
 
     protected void editCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         if (user == null) {
             error(request, response, "Sorry, you need to log in");
             return;
@@ -172,7 +172,7 @@ import java.util.List;
     }
 
     protected void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         if (user == null) {
             error(request, response, "Sorry, you need to log in");
             return;
@@ -191,7 +191,7 @@ import java.util.List;
     }
 
     protected void deleteItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         if (user == null) {
             error(request, response, "Sorry, you need to log in");
             return;
@@ -207,7 +207,7 @@ import java.util.List;
     }
 
     protected void createItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         if (user == null) {
             error(request, response, "Sorry, you need to log in");
             return;
@@ -228,7 +228,7 @@ import java.util.List;
     }
 
     protected void editItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         if (user == null) {
             error(request, response, "Sorry, you need to log in");
             return;

@@ -27,8 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void addItem(Category Category, String maker, String model, String description) {
-        daoFactory.getItemDao().addItem(Category, maker, model, description);
+    public void addItem(Category category, String maker, String model, String description) {
+        daoFactory.getItemDao().addItem(category, maker, model, description);
     }
 
     @Override

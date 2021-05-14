@@ -2,7 +2,6 @@ package com.example.store.dao;
 
 import com.example.store.model.Category;
 import com.example.store.model.Item;
-import com.example.store.model.User;
 
 import java.util.Collection;
 

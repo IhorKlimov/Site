@@ -1,8 +1,8 @@
 package com.example.store.dao;
 
-import com.example.store.model.User;
+import com.example.store.model.Admin;
 
-public interface UserDao extends AbstractDao<User> {
+public interface UserDao extends AbstractDao<Admin> {
 
-    User getByLogin(String login);
+    Admin getByLogin(String login);
 }

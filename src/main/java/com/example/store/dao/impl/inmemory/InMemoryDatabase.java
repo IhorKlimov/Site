@@ -6,7 +6,7 @@ import java.util.*;
 
 public class InMemoryDatabase {
 
-    Map<Integer, User> users;
+    Map<Integer, Admin> users;
     Map<Integer, Category> categories;
     Map<Integer, Item> items;
 

@@ -2,7 +2,6 @@ package com.example.store.services;
 
 import com.example.store.model.Category;
 import com.example.store.model.Item;
-import com.example.store.model.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +18,7 @@ public interface CategoryService {
 
     Item getItemById(Integer itemId);
 
-    void addItem(Category Category, String maker, String model, String description);
+    void addItem(Category category, String maker, String model, String description);
 
     void editItem(Item item, String maker, String model, String description);
 

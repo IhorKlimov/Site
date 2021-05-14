@@ -2,14 +2,14 @@ package com.example.store.model;
 
 import java.util.Objects;
 
-public class User {
+public class Admin {
 
     private Integer userId;
     private String name;
     private String login;
     private String passwordHash;
 
-    public User(Integer userId, String name, String login, String passwordHash) {
+    public Admin(Integer userId, String name, String login, String passwordHash) {
         this.userId = userId;
         this.name = name;
         this.login = login;
@@ -66,7 +66,7 @@ public class User {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final Admin other = (Admin) obj;
         if (!Objects.equals(this.userId, other.userId)) {
             return false;
         }
